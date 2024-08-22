@@ -44,3 +44,8 @@ fieldset {
 form button[type=submit] {
   align-self: center;
 }
+
+pre {
+  width: 100px;
+  margin: 0 auto;
+}

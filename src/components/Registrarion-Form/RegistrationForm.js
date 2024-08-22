@@ -10,8 +10,9 @@ export function RagistrationForm() {
     const [email, setEmail] = useState({ value: "", isValid: false });
     const [sex, setSex] = useState("");
     const [language, setLanguage] = useState("English");
-    const [about, setAbout] = useState({ value: "", isValid: false });
+    const [about, setAbout] = useState("");
 
+    const [submittedData, setSubmittedData] = useState(null);
 
     function handleUserIdChange(event) {
         const value = event.target.value;
@@ -124,17 +125,26 @@ export function RagistrationForm() {
             name.isValid && address.isValid &&
             zipCode.isValid && email.isValid
         ) && (
-                country != "" && sex != "" &&
-                language != "" && about != ""
-            );
+                country != "" && sex != "" && language != ""
+        );
     }
-
-    // function 
 
     function handleSubmit(event) {
         event.preventDefault();
         if (isValidForm()) {
             alert("Form is valid");
+            const inputValues = [
+                {name: "userId", value: userId.value},
+                {name: "password", value: password.value},
+                {name: "name", value: name.value},
+                {name: "country", value: country},
+                {name: "zipCode", value: zipCode.value},
+                {name: "email", value: email.value},
+                {name: "sex", value: sex},
+                {name: "language", value: language},
+                {name: "about", value: about}
+            ];
+            setSubmittedData(JSON.stringify(inputValues, null, 2));
         }
         else {
             alert("Form is invalid");
@@ -142,69 +152,76 @@ export function RagistrationForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <fieldset>
-                <legend>Registration Form</legend>
-                <div className="form-block">
-                    <label htmlFor="user-id">User id [6 characters]:</label>
-                    <input type="text" id="user-id" onChange={handleUserIdChange} />
-                </div>
-                <div className="form-block">
-                    <label htmlFor="pwd">Password [7 to 12 characters]:</label>
-                    <input type="password" id="pwd" onChange={handlePasswordChange} />
-                </div>
-                <div className="form-block">
-                    <label htmlFor="name">Name [Alphabets characters]:</label>
-                    <input type="text" id="name" onChange={handleNameChange} />
-                </div>
-                <div className="form-block">
-                    <label htmlFor="address">Address [alphanumeric characters]:</label>
-                    <input type="text" id="address" onChange={handleAddressChange} />
-                </div>
-                <div className="form-block">
-                    <label htmlFor="country">Country [Must select a country]:</label>
-                    <select id="country" onChange={handleCountryChange}>
-                        <option value="" selected disabled hidden>Choose here</option>
-                        <option value="Australia">Australia</option>
-                        <option value="Canada">Canada</option>
-                        <option value="Germany">Germany</option>
-                        <option value="Japan">Japan</option>
-                        <option value="South Africa">South Africa</option>
-                        <option value="Norway">Norway</option>
-                        <option value="Mexico">Mexico</option>
-                        <option value="New Zealand">New Zealand</option>
-                    </select>
-                </div>
-                <div className="form-block">
-                    <label htmlFor="zip-code">ZIP Code [alphanumeric characters]:</label>
-                    <input type="text" id="zip-code" onChange={handleZipCodeChange} />
-                </div>
-                <div className="form-block">
-                    <label htmlFor="email">Email [Valid email]:</label>
-                    <input type="email" id="email" onChange={handleEmailChange} />
-                </div>
-                <div className="form-block">
-                    <label>Sex [Select Male or Female]:</label>
-                    <div>
-                        <input type="radio" name="Sex" id="male" text='Male' onChange={handleSexChange} />
-                        <label htmlFor="male">Male</label>
-                        <input type="radio" name="Sex" id="female" text='Female' onChange={handleSexChange} />
-                        <label htmlFor="female">Female</label>
+        <div>
+            <form onSubmit={handleSubmit}>
+                <fieldset>
+                    <legend>Registration Form</legend>
+                    <div className="form-block">
+                        <label htmlFor="user-id">User id [6 characters]:</label>
+                        <input type="text" id="user-id" onChange={handleUserIdChange} />
                     </div>
-                </div>
-                <div className="form-block">
-                    <label htmlFor="lang">Language [Optional]:</label>
-                    <select id="lang" onChange={handleLanguageChange}>
-                        <option value="English">English</option>
-                        <option value="Non English">Non English</option>
-                    </select>
-                </div>
-                <div className="form-block">
-                    <label htmlFor="about">About [Optional]:</label>
-                    <textarea id="about" onChange={handleAboutChange}></textarea>
-                </div>
-                <button type="submit">Submit</button>
-            </fieldset>
-        </form>
+                    <div className="form-block">
+                        <label htmlFor="pwd">Password [7 to 12 characters]:</label>
+                        <input type="password" id="pwd" onChange={handlePasswordChange} />
+                    </div>
+                    <div className="form-block">
+                        <label htmlFor="name">Name [Alphabets characters]:</label>
+                        <input type="text" id="name" onChange={handleNameChange} />
+                    </div>
+                    <div className="form-block">
+                        <label htmlFor="address">Address [alphanumeric characters]:</label>
+                        <input type="text" id="address" onChange={handleAddressChange} />
+                    </div>
+                    <div className="form-block">
+                        <label htmlFor="country">Country [Must select a country]:</label>
+                        <select id="country" onChange={handleCountryChange}>
+                            <option value="" selected disabled hidden>Choose here</option>
+                            <option value="Australia">Australia</option>
+                            <option value="Canada">Canada</option>
+                            <option value="Germany">Germany</option>
+                            <option value="Japan">Japan</option>
+                            <option value="South Africa">South Africa</option>
+                            <option value="Norway">Norway</option>
+                            <option value="Mexico">Mexico</option>
+                            <option value="New Zealand">New Zealand</option>
+                        </select>
+                    </div>
+                    <div className="form-block">
+                        <label htmlFor="zip-code">ZIP Code [alphanumeric characters]:</label>
+                        <input type="text" id="zip-code" onChange={handleZipCodeChange} />
+                    </div>
+                    <div className="form-block">
+                        <label htmlFor="email">Email [Valid email]:</label>
+                        <input type="email" id="email" onChange={handleEmailChange} />
+                    </div>
+                    <div className="form-block">
+                        <label>Sex [Select Male or Female]:</label>
+                        <div>
+                            <input type="radio" name="Sex" id="male" text='Male' onChange={handleSexChange} />
+                            <label htmlFor="male">Male</label>
+                            <input type="radio" name="Sex" id="female" text='Female' onChange={handleSexChange} />
+                            <label htmlFor="female">Female</label>
+                        </div>
+                    </div>
+                    <div className="form-block">
+                        <label htmlFor="lang">Language [Optional]:</label>
+                        <select id="lang" onChange={handleLanguageChange}>
+                            <option value="English">English</option>
+                            <option value="Non English">Non English</option>
+                        </select>
+                    </div>
+                    <div className="form-block">
+                        <label htmlFor="about">About [Optional]:</label>
+                        <textarea id="about" onChange={handleAboutChange}></textarea>
+                    </div>
+                    <button type="submit">Submit</button>
+                </fieldset>
+            </form>
+            {submittedData && (
+                <pre>
+                    {submittedData}
+                </pre>
+            )}
+        </div>
     );
 }
