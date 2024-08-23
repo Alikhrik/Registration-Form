@@ -25,7 +25,7 @@ export function RagistrationForm() {
 
     function isValidUserId(UserId) {
         const len = UserId.length;
-        return len == 6;
+        return len === 6;
     }
 
     function handlePasswordChange(event) {
@@ -125,8 +125,8 @@ export function RagistrationForm() {
             name.isValid && address.isValid &&
             zipCode.isValid && email.isValid
         ) && (
-                country != "" && sex != "" && language != ""
-        );
+                country !== "" && sex !== "" && language !== ""
+    );
     }
 
     function handleSubmit(event) {
